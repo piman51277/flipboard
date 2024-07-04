@@ -1,5 +1,14 @@
 const flipCellHTML = `<div class="flip-cell-elem"><div class="flip-cell-front"></div><div class="flip-cell-back"></div></div>`;
 
+/**
+ * Waits for a certain amount of time
+ * @param {number} ms duration in milliseconds
+ * @returns {Promise<void>} Promise
+ */
+async function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 class FlipElement {
   private elem: HTMLDivElement;
   public state: boolean;
@@ -269,6 +278,32 @@ export class FlipBoard {
         for (let y = 0; y < matrix[0].length; y++) {
           this.setOne(x, y, matrix[x][y], true);
         }
+      }
+    }
+  }
+
+  /**
+   * Applies a matrix to the display with a ripple effect
+   * @param {boolean[][]} matrix Matrix to apply
+   * @param {boolean} transposed true if column major
+   */
+  public async setMatrixRipple(
+    matrix: boolean[][],
+    transposed = false
+  ): Promise<void> {
+    if (transposed) {
+      for (let y = 0; y < matrix.length; y++) {
+        for (let x = 0; x < matrix[0].length; x++) {
+          this.setOne(x, y, matrix[y][x], true);
+        }
+        await wait(12);
+      }
+    } else {
+      for (let x = 0; x < matrix.length; x++) {
+        for (let y = 0; y < matrix[0].length; y++) {
+          this.setOne(x, y, matrix[x][y], true);
+        }
+        await wait(12);
       }
     }
   }

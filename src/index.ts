@@ -17,12 +17,15 @@ ready(() => {
     false
   );
 
-  setInterval(() => {
+  const update = async (): Promise<void> => {
     const dim = board.dimensions;
 
     console.log(board.dimensions[0] * board.dimensions[1]);
     automat.resize(...dim);
-    board.setMatrix(automat.board, true);
+    await board.setMatrixRipple(automat.board, true);
     automat.update();
-  }, 1000);
+
+    setTimeout(() => requestAnimationFrame(update), 1000);
+  };
+  update();
 });
