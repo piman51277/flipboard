@@ -1,0 +1,54 @@
+:root {
+  --flip-cell-size: 25px;
+}
+
+#flip-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 0px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.flip-cell {
+  position: relative;
+  width: var(--flip-cell-size);
+  height: var(--flip-cell-size);
+  perspective: 1000px;
+  background-color: transparent;
+}
+
+.flip-cell-elem {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.flip-cell-active .flip-cell-elem {
+  transform: rotateY(180deg);
+}
+
+.flip-cell-front,
+.flip-cell-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-cell-front {
+  background-color: #000;
+}
+
+.flip-cell-back {
+  background-color: #fff;
+  transform: rotateY(180deg);
+}

@@ -1,0 +1,5 @@
+node_modules
+dist/
+.env
+assets/js/*.js
+assets/js/*.js.map
